@@ -6,6 +6,8 @@ A lightweight functional core for TypeScript.
 
 - [Either API](./docs/either.md)
 - [Result API](./docs/result.md)
+- [Option API](./docs/option.md)
+- [Maybe API](./docs/maybe.md)
 
 ## Development
 
