@@ -1,0 +1,26 @@
+{
+  "name": "prism-ts",
+  "version": "0.1.0",
+  "description": "A lightweight functional core for TypeScript",
+  "type": "module",
+  "types": "./src/lib.ts",
+  "exports": {
+    ".": "./src/lib.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit ",
+    "sanity": "bun run format && bun run typecheck && bun test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.5",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
