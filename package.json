@@ -14,11 +14,20 @@
   "scripts": {
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit ",
-    "sanity": "bun run format && bun run typecheck && bun test"
+    "sanity": "bun run format && bun run typecheck && bun test",
+    "test:runtime:node": "vitest run --config vitest.node.config.ts",
+    "test:runtime:web": "vitest run --config vitest.web.config.mjs",
+    "test:runtime:bun": "bun test",
+    "test:runtimes": "bun run test:runtime:node && bun run test:runtime:web && bun run test:runtime:bun"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.5",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@vitest/browser": "^4.0.18",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "playwright": "^1.58.2",
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "typescript": "^5"
