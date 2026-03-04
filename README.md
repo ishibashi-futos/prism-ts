@@ -1,15 +1,22 @@
 # prism-ts
 
+A lightweight functional core for TypeScript.
+
+## Docs
+
+- [Either API](./docs/either.md)
+- [Result API](./docs/result.md)
+
+## Development
+
 To install dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+To run tests:
 
 ```bash
-bun run src/lib.ts
+bun run sanity
 ```
-
-This project was created using `bun init` in bun v1.3.10. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
