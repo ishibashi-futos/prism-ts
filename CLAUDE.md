@@ -37,6 +37,7 @@ Backward compatibility is not a priority at this stage.
 - Avoid top-level side effects (must be tree-shakeable).
 - Do not use exceptions for control flow.
 - Model failures explicitly via Result/Either/Validation.
+- Keep function-first APIs as canonical; method-chain style is an optional thin wrapper.
 
 ## ADT and Error Semantics
 
@@ -44,6 +45,8 @@ Backward compatibility is not a priority at this stage.
 - Either / Result: preserves error values.
 - Validation: accumulates errors (no short-circuit unless explicitly defined).
 - Effect: represents deferred computation; never executes implicitly.
+
+ADT discriminators (e.g., `_tag`) must be consistent and stable.
 
 ## Pattern Matching
 
@@ -66,9 +69,30 @@ Backward compatibility is not a priority at this stage.
 - Ensure all modules are tree-shakeable.
 - Evaluate bundle size and runtime cost when introducing new APIs.
 
+## Method-Chain Wrapper Policy
+
+- Method-chain style APIs are allowed only as thin wrappers over canonical function APIs.
+- Do not duplicate core logic in wrapper methods; delegate to exported functions (`map`, `flatMap`, `fold`, etc.).
+- Keep runtime representation minimal (plain tagged objects first; wrappers must not require classes).
+- Wrapper introduction must preserve existing function API behavior and types.
+- Avoid global mutation and avoid modifying built-in prototypes.
+- Prefer shared method implementations (e.g., shared prototype) over per-instance closures to limit allocations.
+- If a wrapper is used, ensure both functional style and method style are covered by tests.
+
+## Structure
+
+- `src/core/` contains internal foundational ADTs and primitives (e.g., `Either`, `Option`, `Result`).
+- `src/lib.ts` is the package entrypoint and re-export surface for user-facing APIs.
+- Place tests under `test/` mirroring source structure (e.g., `test/core/either.test.ts`).
+- In tests, import source modules via root alias (`@/`) instead of deep relative paths.
+
 ## Documentation
 
 - Public exports must include concise JSDoc.
 - Provide minimal usage examples.
 - Follow functional programming naming conventions:
   `map`, `flatMap`, `fold`, `match`, `tap`, `zip`, etc.
+
+## Definition of Done
+
+- Final verification before reporting completion must use `bun run sanity`.
